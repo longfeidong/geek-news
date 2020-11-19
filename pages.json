@@ -4,6 +4,7 @@
             "path" : "pages/tabbar/index/index",
             "style" :                                                                                    
             {
+				"navigationStyle": "custom", // 自定义导航栏
                 "navigationBarTitleText": "首页",
                 "enablePullDownRefresh": false
             }
