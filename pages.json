@@ -5,6 +5,7 @@
             "style" :                                                                                    
             {
 				"navigationStyle": "custom", // 自定义导航栏
+				"navigationBarTextStyle": "white",
                 "navigationBarTitleText": "首页",
                 "enablePullDownRefresh": false
             }
