@@ -6,7 +6,9 @@
 			<!-- 搜索框 -->
 			<view class="navbar-content" :style="{height: navBarHeight + 'px', width: navBarWidth + 'px'}">
 				<view class="navbar-search">
-					<view class="navbar-search_icon"></view>
+					<view class="navbar-search_icon">
+						<text class="iconfont icon-search"></text>
+					</view>
 					<view class="navbar-search_text">uniapp、react</view>
 				</view>
 			</view>
@@ -48,6 +50,7 @@
 </script>
 
 <style lang="scss">
+	@import '../../common/css/icons.css';
 	.navbar {
 		.navbar-fixed {
 			position: fixed;
@@ -73,9 +76,9 @@
 				background-color: #FFFFFF;
 				border-radius: 30px;
 				.navbar-search_icon {
-					width: 10px;
-					height: 10px;
-					border: 1px solid red;
+					// width: 10px;
+					// height: 10px;
+					// border: 1px solid red;
 					margin-right: 10px;
 				}
 				.navbar-search_text {
