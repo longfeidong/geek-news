@@ -7,7 +7,10 @@
 			<view class="navbar-content" :style="{height: navBarHeight + 'px', width: navBarWidth + 'px'}">
 				<view class="navbar-search">
 					<view class="navbar-search_icon">
-						<text class="iconfont icon-search"></text>
+						<!-- iconfont -->
+						<!-- <text class="iconfont icon-search"></text> -->
+						<!-- 使用Icons插件 -->
+						<uni-icons type="search" size="14" color="#666"></uni-icons>
 					</view>
 					<view class="navbar-search_text">uniapp、react</view>
 				</view>
