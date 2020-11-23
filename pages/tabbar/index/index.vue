@@ -2,6 +2,8 @@
 	<view>
 		<!-- 自定义导航栏 -->
 		<navbar></navbar>
+		<!-- 滚动tab -->
+		<scroll-tab></scroll-tab>
 		<view v-for="item in 100">{{item}}内容数据</view>
 	</view>
 </template>
