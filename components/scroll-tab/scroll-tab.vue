@@ -5,7 +5,7 @@
 				<!-- <view class="tab-scroll_item" v-for="item in tabList" :key="item.id">
 					{{ item.name }}
 				</view> -->
-				<view class="tab-scroll_item" v-for="item in list" :key="item._id">
+				<view class="tab-scroll_item" :class="{active: activeIndex === index}" v-for="(item, index) in list" :key="item._id" @click="handleClickTap(item, index)">
 					{{ item.name }}
 				</view>
 			</view>
@@ -69,8 +69,19 @@
 						id: 1010,
 						name: '云开发'
 					}
-				]
+				],
+				activeIndex: 0
 			};
+		},
+		methods: {
+			handleClickTap(item, index) {
+				// console.log(item, index)
+				this.activeIndex = index
+				this.$emit('handleTap', {
+					data: item,
+					index: index
+				})
+			}
 		}
 	}
 </script>
@@ -98,6 +109,9 @@
 					padding: 0 10px;
 					font-size: 14px;
 					color: #333;
+					&.active {
+						color: $gk-base-color;
+					}
 				}
 			}
 		}

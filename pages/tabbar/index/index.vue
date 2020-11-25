@@ -3,7 +3,7 @@
 		<!-- 自定义导航栏 -->
 		<navbar></navbar>
 		<!-- 滚动tab -->
-		<scroll-tab :list="labelList"></scroll-tab>
+		<scroll-tab :list="labelList" @handleTap="tabSwitch"></scroll-tab>
 		<view v-for="item in 100">{{item}}内容数据</view>
 	</view>
 </template>
@@ -24,6 +24,9 @@
 			this.getLabelData()
 		},
 		methods: {
+			tabSwitch({data, index}) {
+				console.log('接收到的数据', data, index)
+			},
 			getLabelData() {
 				// uniCloud.callFunction({
 				// 	name: 'getLabel',
