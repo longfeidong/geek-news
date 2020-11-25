@@ -16,7 +16,7 @@
 				</view>
 			</view>
 		</view>
-		<view :style="{height: placeHeight + 'px'}"></view>
+		<view :style="{height: statusBarHeight + navBarHeight + 'px'}"></view>
 	</view>
 </template>
 
@@ -25,7 +25,7 @@
 		data() {
 			return {
 				statusBarHeight: 20,
-				navBarHeight: 45,
+				navBarHeight: 44,
 				navBarWidth: 375,
 				placeHeight: '' // 展位高度
 			};

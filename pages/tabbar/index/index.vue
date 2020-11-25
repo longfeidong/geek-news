@@ -36,15 +36,27 @@
 				// })
 				
 				// 调用云函数
-				uniCloud.callFunction({
-					name: 'getLabel'
-				}).then((res) => {
-					const { result } = res
-					this.labelList = result.data
+				// uniCloud.callFunction({
+				// 	name: 'getLabel'
+				// }).then((res) => {
+				// 	const { result } = res
+				// 	this.labelList = result.data
+				// 	console.log(this.labelList)
+				// }).catch((err) => {
+				// 	console.log(err)
+				// })
+				
+				console.log(this.$api)
+				this.$api.getLabel().then((res) => {
+					console.log(res)
+					const { data } = res
+					this.labelList = data
 					console.log(this.labelList)
-				}).catch((err) => {
-					console.log(err)
 				})
+				
+				// this.$api.getList().then((res) => {
+				// 	console.log(res);
+				// })
 			}
 		}
 	}
