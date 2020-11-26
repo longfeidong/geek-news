@@ -1,19 +1,24 @@
 <template>
-	<view>
+	<view class="home">
 		<!-- 自定义导航栏 -->
 		<navbar></navbar>
 		<!-- 滚动tab -->
 		<scroll-tab :list="labelList" @handleTap="tabSwitch"></scroll-tab>
-		<view v-for="item in 100">{{item}}内容数据</view>
+		<!-- <view v-for="item in 100">{{item}}内容数据</view> -->
+		<!-- 滚动列表组件 -->
+		<list-scroll>
+			<!-- <view v-for="item in 100">{{item}}内容数据</view> -->
+			<list-card v-for="item in 10"></list-card>
+		</list-scroll>
 	</view>
 </template>
 
 <script>
 	// easycom @/components/组件名/组件名.vue 局部引入
-	// import navbar from '@/components/navbar/navbar.vue'
+	// import listCard from '@/components/list-card/list-card.vue'
 	export default {
 		// components: {
-		// 	navbar
+		// 	listCard
 		// },
 		data() {
 			return {
@@ -65,6 +70,18 @@
 	}
 </script>
 
-<style>
-
+<style lang="scss">
+	page {
+		height: 100%;
+		display: flex;
+	}
+	.home {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		border: 1px solid #CC0000;
+		// 控制整体内容在可视区显示
+		overflow: hidden;
+	}
+	
 </style>
