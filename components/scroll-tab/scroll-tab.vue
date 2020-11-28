@@ -24,6 +24,10 @@
 				default() {
 					return []
 				}
+			},
+			tabIndex: {
+				type: Number,
+				default: 0
 			}
 		},
 		data() {
@@ -72,6 +76,14 @@
 				],
 				activeIndex: 0
 			};
+		},
+		// 可以监听 data props 值的变化
+		watch: {
+			tabIndex(newVal) {
+				// console.log(newVal)
+				// 接收到的新值赋给 ativeIndex
+				this.activeIndex = newVal
+			}
 		},
 		methods: {
 			handleClickTap(item, index) {

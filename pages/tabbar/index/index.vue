@@ -3,11 +3,11 @@
 		<!-- 自定义导航栏 -->
 		<navbar></navbar>
 		<!-- 滚动tab -->
-		<scroll-tab :list="labelList" @handleTap="tabSwitch"></scroll-tab>
+		<scroll-tab :list="labelList" :tabIndex="tabIndex" @handleTap="tabSwitch"></scroll-tab>
 		<!-- <view v-for="item in 100">{{item}}内容数据</view> -->
 		<!-- 滚动列表组件 -->
 		
-		<list-swiper :tabNum="labelList"></list-swiper>
+		<list-swiper :tabNum="labelList" :activeIndex="activeIndex" @changeSwiper="handleChange"></list-swiper>
 		
 		<!-- <list-scroll>
 			<view v-for="item in 5">{{item}}内容数据</view>
@@ -31,7 +31,9 @@
 		// },
 		data() {
 			return {
-				labelList: []
+				labelList: [],
+				tabIndex: 0,
+				activeIndex: 0
 			}
 		},
 		onLoad() {
@@ -39,6 +41,7 @@
 		},
 		methods: {
 			tabSwitch({data, index}) {
+				this.activeIndex = index
 				console.log('接收到的数据', data, index)
 			},
 			getLabelData() {
@@ -74,6 +77,10 @@
 				// this.$api.getList().then((res) => {
 				// 	console.log(res);
 				// })
+			},
+			handleChange(current) {
+				this.tabIndex = current
+				// console.log('当前swiper的值：', current)
 			}
 		}
 	}
