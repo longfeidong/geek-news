@@ -95,7 +95,7 @@
 		display: flex;
 		flex-direction: column;
 		flex: 1;
-		border: 1px solid #CC0000;
+		// border: 1px solid #CC0000;
 		// 控制整体内容在可视区显示
 		overflow: hidden;
 	}

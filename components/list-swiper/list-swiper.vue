@@ -2,7 +2,7 @@
 	<view class="swiper-box">
 		<swiper class="home-swiper" :current="activeIndex" @change="handleChange">
 			<swiper-item class="swiper-item" v-for="(item, index) in tabNum" :key="index">
-				<text>{{ index }}</text>
+				<!-- <text>{{ index }}</text> -->
 				<list-swiper-item></list-swiper-item>
 			</swiper-item>
 			<!-- <swiper-item class="swiper-item">
