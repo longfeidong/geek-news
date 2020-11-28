@@ -6,13 +6,19 @@
 		<scroll-tab :list="labelList" @handleTap="tabSwitch"></scroll-tab>
 		<!-- <view v-for="item in 100">{{item}}内容数据</view> -->
 		<!-- 滚动列表组件 -->
-		<list-scroll>
-			<!-- <view v-for="item in 100">{{item}}内容数据</view> -->
-			<!-- <list-card v-for="item in 10"></list-card> -->
+		
+		<list-swiper :tabNum="labelList"></list-swiper>
+		
+		<!-- <list-scroll>
+			<view v-for="item in 5">{{item}}内容数据</view>
+			<list-card v-for="item in 5"></list-card>
 			<list-card mode="base"></list-card>
 			<list-card mode="column"></list-card>
 			<list-card mode="bigPic"></list-card>
-		</list-scroll>
+			<list-card mode="base"></list-card>
+			<list-card mode="column"></list-card>
+			<list-card mode="bigPic"></list-card>
+		</list-scroll> -->
 	</view>
 </template>
 
