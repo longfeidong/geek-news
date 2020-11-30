@@ -7,9 +7,9 @@ export const getLabel = (data) => {
 	})
 }
 
-// export const getList = (data) => {
-// 	return $http({
-// 		url: 'getList',
-// 		data
-// 	})
-// }
+export const getList = (data) => {
+	return $http({
+		url: 'getList',
+		data
+	})
+}

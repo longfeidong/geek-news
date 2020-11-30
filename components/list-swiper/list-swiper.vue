@@ -3,7 +3,7 @@
 		<swiper class="home-swiper" :current="activeIndex" @change="handleChange">
 			<swiper-item class="swiper-item" v-for="(item, index) in tabNum" :key="index">
 				<!-- <text>{{ index }}</text> -->
-				<list-swiper-item></list-swiper-item>
+				<list-swiper-item :list="list"></list-swiper-item>
 			</swiper-item>
 			<!-- <swiper-item class="swiper-item">
 				<list-swiper-item></list-swiper-item>
@@ -36,14 +36,24 @@
 		},
 		data() {
 			return {
-				
+				list: []
 			};
+		},
+		created() {
+			this.getListInfo()
 		},
 		methods: {
 			handleChange(e) {
 				// console.log(e);
 				const { current } = e.detail
 				this.$emit('changeSwiper', current)
+			},
+			getListInfo() {
+				this.$api.getList().then((res) => {
+					const { data } = res
+					this.list = data
+					console.log(res)
+				})
 			}
 		}
 	}

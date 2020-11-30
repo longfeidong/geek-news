@@ -1,55 +1,55 @@
 <template>
 	<view>
 		<!-- 基础模式 -->
-		<view class="list-card" v-if="mode === 'base'">
+		<view class="list-card" v-if="item.mode === 'base'">
 			<view class="list-card-pic">
-				<image src="../../static/logo.png" mode="aspectFill"></image>
+				<image :src="item.cover[0]" mode="aspectFill"></image>
 			</view>
 			<view class="list-card-content">
 				<view class="list-card-content-title">
-					<text>今天，国务院办公厅发布关于2021年部分节假日安排的通知。经国务院批准，2021年元旦、春节、清明节、劳动节、端午节、中秋节和国庆节放假调休日期的具体安排如下：</text>
+					<text>{{ item.title }}</text>
 				</view>
 				<view class="list-card-content-desc">
 					<view class="desc-label">
-						<view class="label-item">前端</view>
+						<view class="label-item">{{ item.classify }}</view>
 					</view>
-					<view class="desc-browse">152</view>
+					<view class="desc-browse">{{ item.browse_count }}浏览</view>
 				</view>
 			</view>
 		</view>
 		<!-- 多图模式 -->
-		<view class="list-card mode-column" v-if="mode === 'column'">
+		<view class="list-card mode-column" v-if="item.mode === 'column'">
 			<view class="list-card-content">
 				<view class="list-card-content-title">
-					<text>今天，国务院办公厅发布关于2021年部分节假日安排的通知。经国务院批准，2021年元旦、春节、清明节、劳动节、端午节、中秋节和国庆节放假调休日期的具体安排如下：</text>
+					<text>{{ item.title }}</text>
 				</view>
 				<view class="list-card-pic">
-					<view class="list-card-pic-item" v-for="item in 3" :key="item">
-						<image src="https://img1.sycdn.imooc.com/5db855c800013c6102680255.jpg" mode="aspectFill"></image>
+					<view class="list-card-pic-item" v-if="index < 3" v-for="(itemImg, index) in item.cover" :key="index">
+						<image :src="itemImg" mode="aspectFill"></image>
 					</view>
 				</view>
 				<view class="list-card-content-desc">
 					<view class="desc-label">
-						<view class="label-item">前端</view>
+						<view class="label-item">{{ item.classify }}</view>
 					</view>
-					<view class="desc-browse">152</view>
+					<view class="desc-browse">{{ item.browse_count }}浏览</view>
 				</view>
 			</view>
 		</view>
 		<!-- 大图模式 -->
-		<view class="list-card mode-bigPic" v-if="mode === 'bigPic'">
+		<view class="list-card mode-bigPic" v-if="item.mode === 'image'">
 			<view class="list-card-pic">
-				<image src="https://img1.sycdn.imooc.com/5ccfac620001f8d405000344.jpg" mode="aspectFill"></image>
+				<image :src="item.cover[0]"></image>
 			</view>
 			<view class="list-card-content">
 				<view class="list-card-content-title">
-					<text>今天，国务院办公厅发布关于2021年部分节假日安排的通知。经国务院批准，2021年元旦、春节、清明节、劳动节、端午节、中秋节和国庆节放假调休日期的具体安排如下：</text>
+					<text>{{ item.title }}</text>
 				</view>
 				<view class="list-card-content-desc">
 					<view class="desc-label">
-						<view class="label-item">前端</view>
+						<view class="label-item">{{ item.classify }}</view>
 					</view>
-					<view class="desc-browse">152</view>
+					<view class="desc-browse">{{ item.browse_count }}浏览</view>
 				</view>
 			</view>
 		</view>
@@ -59,9 +59,15 @@
 <script>
 	export default {
 		props: {
-			mode: {
-				type: String,
-				default: 'base'
+			// mode: {
+			// 	type: String,
+			// 	default: 'base'
+			// },
+			item: {
+				type: Object,
+				default() {
+					return {}
+				}
 			}
 		},
 		data() {
