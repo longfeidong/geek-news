@@ -70,6 +70,10 @@
 				this.$api.getLabel().then((res) => {
 					console.log(res)
 					const { data } = res
+					// 添加 全部 Label
+					data.unshift({
+						name: '全部'
+					})
 					this.labelList = data
 					console.log(this.labelList)
 				})
@@ -80,6 +84,7 @@
 			},
 			handleChange(current) {
 				this.tabIndex = current
+				this.activeIndex = current
 				// console.log('当前swiper的值：', current)
 			}
 		}
