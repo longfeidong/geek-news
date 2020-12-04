@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view @click="open">
 		<!-- 基础模式 -->
 		<view class="list-card" v-if="item.mode === 'base'">
 			<view class="list-card-pic">
@@ -8,6 +8,7 @@
 			<view class="list-card-content">
 				<view class="list-card-content-title">
 					<text>{{ item.title }}</text>
+					<collect :item="item"></collect>
 				</view>
 				<view class="list-card-content-desc">
 					<view class="desc-label">
@@ -22,6 +23,7 @@
 			<view class="list-card-content">
 				<view class="list-card-content-title">
 					<text>{{ item.title }}</text>
+					<collect :item="item"></collect>
 				</view>
 				<view class="list-card-pic">
 					<view class="list-card-pic-item" v-if="index < 3" v-for="(itemImg, index) in item.cover" :key="index">
@@ -44,6 +46,7 @@
 			<view class="list-card-content">
 				<view class="list-card-content-title">
 					<text>{{ item.title }}</text>
+					<collect :item="item"></collect>
 				</view>
 				<view class="list-card-content-desc">
 					<view class="desc-label">
@@ -74,6 +77,11 @@
 			return {
 				
 			};
+		},
+		methods: {
+			open() {
+				console.log('打开')
+			}
 		}
 	}
 </script>
@@ -110,6 +118,8 @@
 			width: 100%;
 			padding-left: 10px;
 			.list-card-content-title {
+				display: flex;
+				justify-content: space-between;
 				font-size: 14px;
 				color: #333;
 				font-weight: 400;

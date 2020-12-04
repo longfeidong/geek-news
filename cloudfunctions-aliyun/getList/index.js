@@ -1,6 +1,8 @@
 'use strict';
 // 获取数据库的引用
 const db = uniCloud.database();
+// 聚合操作符
+const $ = db.command.aggregate
 
 exports.main = async (event, context) => {
 	//event为客户端上传的参数
@@ -8,6 +10,7 @@ exports.main = async (event, context) => {
 	
 	// 接受分类，通过分类去筛选数据
 	const { 
+		user_id,
 		name,
 		page = 1,
 		pageSize = 10
@@ -20,8 +23,16 @@ exports.main = async (event, context) => {
 		}
 	}
 	
+	// 获取当前用户信息
+	const userInfo = await db.collection('user').doc(user_id).get()
+	const article_likes_ids = userInfo.data[0].article_likes_ids
 	let listInfo = await db.collection('article')
+
 	.aggregate()
+	// 追加返回的字段
+	.addFields({
+		is_collect: $.in(['$_id', article_likes_ids])
+	})
 	.match(matchObj)
 	.project({
 		content: false

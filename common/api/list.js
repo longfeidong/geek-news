@@ -13,3 +13,10 @@ export const getList = (data) => {
 		data
 	})
 }
+
+export const updateCollect = (data) => {
+	return $http({
+		url: 'updateCollect',
+		data
+	})
+}
