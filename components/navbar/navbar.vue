@@ -4,8 +4,14 @@
 			<!-- 状态栏 -->
 			<view class="status-bar" :style="{height: statusBarHeight + 'px'}"></view>
 			<!-- 搜索框 -->
-			<view class="navbar-content" :style="{height: navBarHeight + 'px', width: navBarWidth + 'px'}">
-				<view class="navbar-search">
+			<view class="navbar-content" :class="{search: isSearch}" :style="{height: navBarHeight + 'px', width: navBarWidth + 'px'}" @click.stop="open">
+				<view class="navbar-search_back">
+					<uni-icons type="back" size="22" color="#fff"></uni-icons>
+				</view>
+				<view class="navbar-search" v-if="isSearch">
+					<input type="text" class="navbar-search_text" placeholder="请输入搜索内容">
+				</view>
+				<view class="navbar-search" v-else>
 					<view class="navbar-search_icon">
 						<!-- iconfont -->
 						<!-- <text class="iconfont icon-search"></text> -->
@@ -22,6 +28,12 @@
 
 <script>
 	export default {
+		props: {
+			isSearch: {
+				type: Boolean,
+				default: false
+			}
+		},
 		data() {
 			return {
 				statusBarHeight: 20,
@@ -50,6 +62,14 @@
 			console.log(navHeight, navWidth)
 			this.placeHeight = this.statusBarHeight + this.navBarHeight;
 			// #endif
+		},
+		methods: {
+			open() {
+				if (this.isSearch) {return}
+				uni.navigateTo({
+					url: '/pages/home-search/home-search'
+				})
+			}
 		}
 	}
 </script>
@@ -71,6 +91,15 @@
 				height: 45px;
 				padding: 0 15px;
 				box-sizing: border-box;
+				&.search {
+					padding-left: 0;
+					.navbar-search_back {
+						margin: 0 10px;
+					}
+					.navbar-search {
+						border-radius: 5px;
+					}
+				}
 			}
 			.navbar-search {
 				display: flex;
