@@ -1,29 +1,46 @@
 <template>
 	<view class="home">
-		<navbar :isSearch="true"></navbar>
+		<navbar :isSearch="true" @input="handleChange"></navbar>
 		<view class="search-histroy">
 			<view class="label-box">
 				<view class="label-header">
 					<text class="label-title">搜索历史</text>
 					<text class="label-clear">清空</text>
 				</view>
-				<view class="label-content">
-					<view class="label-content_item" v-for="item in 10">内容 {{item}}</view>
+				<view class="label-content" v-if="historyList.length > 0">
+					<view class="label-content_item" v-for="item in historyList">{{item.name}}</view>
+				</view>
+				<view class="no-data" v-else>
+					<view>没有搜索记录</view>
 				</view>
 			</view>
 		</view>
+		<button type="default" @click="testAdd">添加历史记录</button>
 	</view>
 </template>
 
 <script>
+	import { mapState } from 'vuex'
+	
 	export default {
 		data() {
 			return {
-				
+				// '后端开发', '前端开发', '运维', '设计'
+				// historyList: []
 			}
 		},
+		computed: {
+			...mapState(['historyList'])
+		},
 		methods: {
-			
+			handleChange(value) {
+				console.log('接受的值：', value)
+			},
+			testAdd() {
+				this.$store.dispatch('set_history', {
+					name: '后端开发'
+				})
+			}
 		}
 	}
 </script>
@@ -72,6 +89,14 @@
 						padding: 2px 8px;
 						margin: 10px 10px 0 0;
 					}
+				}
+				.no-data {
+					display: flex;
+					height: 200px;
+					justify-content: center;
+					align-items: center;
+					font-size: 14px;
+					color: #666;
 				}
 			}
 		}

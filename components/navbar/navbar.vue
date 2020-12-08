@@ -9,7 +9,7 @@
 					<uni-icons type="back" size="22" color="#fff"></uni-icons>
 				</view>
 				<view class="navbar-search" v-if="isSearch">
-					<input type="text" class="navbar-search_text" placeholder="请输入搜索内容">
+					<input type="text" class="navbar-search_text" placeholder="请输入搜索内容" v-model="val" @input="inputChange">
 				</view>
 				<view class="navbar-search" v-else>
 					<view class="navbar-search_icon">
@@ -39,7 +39,8 @@
 				statusBarHeight: 20,
 				navBarHeight: 44,
 				navBarWidth: 375,
-				placeHeight: '' // 展位高度
+				placeHeight: '', // 展位高度
+				val: ''
 			};
 		},
 		created() {
@@ -69,6 +70,11 @@
 				uni.navigateTo({
 					url: '/pages/home-search/home-search'
 				})
+			},
+			inputChange(e) {
+				const { value } = e.detail
+				// console.log(value)
+				this.$emit('input', value)
 			}
 		}
 	}
