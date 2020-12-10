@@ -29,6 +29,10 @@
 <script>
 	export default {
 		props: {
+			value: {
+				type: [String, Number],
+				default: ''
+			},
 			isSearch: {
 				type: Boolean,
 				default: false
@@ -42,6 +46,11 @@
 				placeHeight: '', // 展位高度
 				val: ''
 			};
+		},
+		watch: {
+			value(newVal) {
+				this.val = newVal
+			}
 		},
 		created() {
 			// 获取手机系统信息
@@ -122,6 +131,7 @@
 					margin-right: 10px;
 				}
 				.navbar-search_text {
+					width: 100%;
 					font-size: 14px;
 					color: #666;
 				}

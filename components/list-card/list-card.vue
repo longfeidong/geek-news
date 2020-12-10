@@ -81,6 +81,7 @@
 		methods: {
 			open() {
 				console.log('打开')
+				this.$emit('handleClick', this.item)
 			}
 		}
 	}

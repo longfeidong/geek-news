@@ -20,3 +20,10 @@ export const updateCollect = (data) => {
 		data
 	})
 }
+
+export const getSearch = (data) => {
+	return $http({
+		url: 'getSearch',
+		data
+	})
+}
