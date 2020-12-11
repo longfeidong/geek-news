@@ -5,7 +5,7 @@
 			<view class="label-box" v-if="is_history">
 				<view class="label-header">
 					<text class="label-title">搜索历史</text>
-					<text class="label-clear">清空</text>
+					<text class="label-clear" @click="clearHistory">清空</text>
 				</view>
 				<view class="label-content" v-if="historyList.length > 0">
 					<view class="label-content_item" v-for="item in historyList" @click="handleHistory(item)">{{item.name}}</view>
@@ -102,6 +102,12 @@
 					this.loading = false
 				}).catch(err => {
 					this.loading = false
+				})
+			},
+			clearHistory() {
+				this.$store.dispatch('clear_history')
+				uni.showToast({
+					title: '清空完成'
 				})
 			}
 		}
