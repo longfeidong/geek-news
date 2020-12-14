@@ -34,8 +34,19 @@
             "style" :                                                                                    
             {
 				"navigationStyle": "custom", // 自定义导航栏
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "搜索",
                 "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/home-label/home-label",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "标签管理",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#CC0000",
+				"navigationBarTextStyle": "white"
             }
             
         }

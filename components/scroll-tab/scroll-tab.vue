@@ -11,7 +11,7 @@
 			</view>
 		</scroll-view>
 		<view class="tab-scroll_options">
-			<uni-icons type="gear" size="20"></uni-icons>
+			<uni-icons type="gear" size="20" @click="openLabelSet"></uni-icons>
 		</view>
 	</view>
 </template>
@@ -92,6 +92,11 @@
 				this.$emit('handleTap', {
 					data: item,
 					index: index
+				})
+			},
+			openLabelSet() {
+				uni.navigateTo({
+					url: '/pages/home-label/home-label'
 				})
 			}
 		}
