@@ -9,6 +9,14 @@
 				<view class="label-content_item" v-for="item in 10">内容{{ item }}<uni-icons class="removeLabel" type="clear" size="20" color="#c00"></uni-icons></view>
 			</view>
 		</view>
+		<view class="label-box">
+			<view class="label-header">
+				<view class="label-title">标签推荐</view>
+			</view>
+			<view class="label-content">
+				<view class="label-content_item" v-for="item in 10">内容{{ item }}</view>
+			</view>
+		</view>
 	</view>
 </template>
 
