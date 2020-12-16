@@ -30,7 +30,7 @@
 			};
 		},
 		onLoad() {
-			this.getLable()
+			this.getLabel()
 		},
 		methods: {
 			delLabel(index) {
@@ -44,9 +44,35 @@
 				this.labelList.splice(index, 1)
 			},
 			editLabel() {
-				this.is_edit = !this.is_edit
+				// this.is_edit = !this.is_edit
+				if (this.is_edit) {
+					this.is_edit = false
+					this.setUpdateLabel(this.myLabels)
+				} else {
+					this.is_edit = true
+				}
 			},
-			getLable() {
+			setUpdateLabel(label) {
+				let newArrIds = []
+				label.forEach(item => {
+					newArrIds.push(item._id)
+				})
+				console.log(newArrIds)
+				uni.showLoading({
+					title: '正在更新'
+				})
+				this.$api.updateLabel({
+					label: newArrIds
+				}).then(res => {
+					console.log(res)
+					uni.hideLoading()
+					uni.showToast({
+						title: '更新完成',
+						icon: 'none'
+					})
+				})
+			},
+			getLabel() {
 				this.$api.getLabel({
 					type: 'all'
 				}).then((res) => {

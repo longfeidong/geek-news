@@ -27,3 +27,10 @@ export const getSearch = (data) => {
 		data
 	})
 }
+
+export const updateLabel = (data) => {
+	return $http({
+		url: 'updateLabel',
+		data
+	})
+}
