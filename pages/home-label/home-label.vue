@@ -5,16 +5,24 @@
 				<view class="label-title">我的标签</view>
 				<view class="label-edit" @click="editLabel">{{is_edit ? '完成' : '编辑'}}</view>
 			</view>
-			<view class="label-content">
+			<uni-load-more v-if="loading" status="loading" iconType="snow"></uni-load-more>
+			<view class="label-content" v-if="!loading">
 				<view class="label-content_item" v-for="(item, index) in myLabels" :key="item._id">{{ item.name }}<uni-icons v-if="is_edit" class="removeLabel" type="clear" size="20" color="#c00" @click="delLabel(index)"></uni-icons></view>
+			</view>
+			<view class="no-data" v-if="myLabels.length === 0 && !loading">
+				没有标签数据
 			</view>
 		</view>
 		<view class="label-box">
 			<view class="label-header">
 				<view class="label-title">标签推荐</view>
 			</view>
-			<view class="label-content">
+			<uni-load-more v-if="loading" status="loading" iconType="snow"></uni-load-more>
+			<view class="label-content" v-if="!loading">
 				<view class="label-content_item" v-for="(item, index) in labelList" :key="item._id" @click="addLabel(index)">{{ item.name }}</view>
+			</view>
+			<view class="no-data" v-if="labelList.length === 0 && !loading">
+				没有标签数据
 			</view>
 		</view>
 	</view>
@@ -26,7 +34,8 @@
 			return {
 				is_edit: false,
 				myLabels: [],
-				labelList: []
+				labelList: [],
+				loading: true
 			};
 		},
 		onLoad() {
@@ -70,12 +79,15 @@
 						title: '更新完成',
 						icon: 'none'
 					})
+					uni.$emit('labelChange')
 				})
 			},
 			getLabel() {
+				this.loading = true
 				this.$api.getLabel({
 					type: 'all'
 				}).then((res) => {
+					this.loading = false
 					const {data} = res
 					console.log(data)
 					this.myLabels = data.filter(item => item.current)
@@ -128,6 +140,13 @@
 					}
 				}
 			}
+		}
+		.no-data {
+			width: 100%;
+			padding: 50px 0;
+			font-size: 14px;
+			color: #666;
+			text-align: center;
 		}
 	}
 </style>

@@ -52,6 +52,8 @@
 		watch: {
 			tabNum(newVal) {
 				if (newVal.length === 0) return
+				this.listCacheData = {}
+				this.load = {}
 				this.getListInfo(this.activeIndex)
 			}
 		},
