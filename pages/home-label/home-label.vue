@@ -3,10 +3,10 @@
 		<view class="label-box">
 			<view class="label-header">
 				<view class="label-title">我的标签</view>
-				<view class="label-edit">编辑</view>
+				<view class="label-edit" @click="editLabel">{{is_edit ? '完成' : '编辑'}}</view>
 			</view>
 			<view class="label-content">
-				<view class="label-content_item" v-for="item in 10">内容{{ item }}<uni-icons class="removeLabel" type="clear" size="20" color="#c00"></uni-icons></view>
+				<view class="label-content_item" v-for="(item, index) in myLabels" :key="item._id">{{ item.name }}<uni-icons v-if="is_edit" class="removeLabel" type="clear" size="20" color="#c00" @click="delLabel(index)"></uni-icons></view>
 			</view>
 		</view>
 		<view class="label-box">
@@ -14,7 +14,7 @@
 				<view class="label-title">标签推荐</view>
 			</view>
 			<view class="label-content">
-				<view class="label-content_item" v-for="item in 10">内容{{ item }}</view>
+				<view class="label-content_item" v-for="(item, index) in labelList" :key="item._id" @click="addLabel(index)">{{ item.name }}</view>
 			</view>
 		</view>
 	</view>
@@ -24,8 +24,38 @@
 	export default {
 		data() {
 			return {
-				
+				is_edit: false,
+				myLabels: [],
+				labelList: []
 			};
+		},
+		onLoad() {
+			this.getLable()
+		},
+		methods: {
+			delLabel(index) {
+				// console.log(this.myLabels.splice(index, 1))
+				this.labelList.push(this.myLabels[index])
+				this.myLabels.splice(index, 1)
+			},
+			addLabel(index) {
+				if (!this.is_edit) return
+				this.myLabels.push(this.labelList[index])
+				this.labelList.splice(index, 1)
+			},
+			editLabel() {
+				this.is_edit = !this.is_edit
+			},
+			getLable() {
+				this.$api.getLabel({
+					type: 'all'
+				}).then((res) => {
+					const {data} = res
+					console.log(data)
+					this.myLabels = data.filter(item => item.current)
+					this.labelList = data.filter(item => !item.current)
+				})
+			}
 		}
 	}
 </script>
