@@ -39,8 +39,8 @@
 		onLoad() {
 			uni.$on('labelChange', () => {
 				this.labelList = []
-				this.tabIndex = []
-				this.activeIndex = []
+				this.tabIndex = 0
+				this.activeIndex = 0
 				this.getLabelData()
 			})
 			this.getLabelData()
