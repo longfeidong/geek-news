@@ -5,7 +5,7 @@
 			<view class="status-bar" :style="{height: statusBarHeight + 'px'}"></view>
 			<!-- 搜索框 -->
 			<view class="navbar-content" :class="{search: isSearch}" :style="{height: navBarHeight + 'px', width: navBarWidth + 'px'}" @click.stop="open">
-				<view class="navbar-search_back" @click="goBack">
+				<view v-if="isSearch" class="navbar-search_back" @click="goBack">
 					<uni-icons type="back" size="22" color="#fff"></uni-icons>
 				</view>
 				<view class="navbar-search" v-if="isSearch">
