@@ -82,6 +82,9 @@
 			open() {
 				console.log('打开')
 				this.$emit('handleClick', this.item)
+				uni.navigateTo({
+					url: '/pages/home-detail/home-detail'
+				})
 			}
 		}
 	}
