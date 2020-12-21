@@ -80,10 +80,21 @@
 		},
 		methods: {
 			open() {
-				console.log('打开')
-				this.$emit('handleClick', this.item)
+				const item = this.item
+				
+				const params = {
+					_id: item._id,
+					title: item.title,
+					author: item.author,
+					create_time: item.create_time,
+					browse_count: item.browse_count,
+					thumbs_up_count: item.thumbs_up_count
+				}
+				console.log('打开', params)
+				this.$emit('handleClick', item)
+				// h5中url传参过多的话有可能会被截掉，所以最好用到哪些传哪些
 				uni.navigateTo({
-					url: '/pages/home-detail/home-detail'
+					url: '/pages/home-detail/home-detail?params=' + JSON.stringify(params)
 				})
 			}
 		}

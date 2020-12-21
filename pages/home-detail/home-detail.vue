@@ -1,18 +1,18 @@
 <template>
 	<view class="detail">
 		<view class="detail-title">
-			《Java架构师成长直通车》免费直播课开讲啦（3月18号）
+			{{ formData.title }}
 		</view>
 		<view class="detail-header">
 			<view class="detail-header__logo">
-				<image src="../../static/logo.png" mode="aspectFill"></image>
+				<image :src="formData.author.avatar" mode="aspectFill"></image>
 			</view>
 			<view class="detail-header__content">
-				<view class="detail-header__content-title">郭德纲</view>
+				<view class="detail-header__content-title">{{ formData.author.author_name }}</view>
 				<view class="detail-header__content-info">
-					<text>2020.12.17 14:30</text>
-					<text>2020浏览</text>
-					<text>1888赞</text>
+					<text>{{ formData.create_time }}</text>
+					<text>{{ formData.browse_count }}浏览</text>
+					<text>{{ formData.thumbs_up_count }}赞</text>
 				</view>
 			</view>
 		</view>
@@ -43,8 +43,12 @@
 	export default {
 		data() {
 			return {
-				
+				formData: {}
 			}
+		},
+		onLoad(query) {
+			this.formData = JSON.parse(query.params)
+			console.log(query)
 		},
 		methods: {
 			
