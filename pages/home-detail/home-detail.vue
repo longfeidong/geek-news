@@ -18,7 +18,7 @@
 		</view>
 		<view class="detail-content">
 			<view class="detail-content-html">
-				<uParse :content="formData.content" :nodata="nodata"></uParse>
+				<uParse :content="formData.content" :noData="noData"></uParse>
 				<!-- {{ formData.content }} -->
 			</view>
 		</view>
@@ -52,7 +52,7 @@
 		data() {
 			return {
 				formData: {},
-				nodata: '<p style="text-align:center;color:#666">详情正在加载……</p>'
+				noData: '<p style="text-align:center;color:#666">详情正在加载……</p>'
 			}
 		},
 		onLoad(query) {
