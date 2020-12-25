@@ -17,7 +17,9 @@
 			</view>
 		</view>
 		<view class="detail-content">
-			详情数据
+			<view class="detail-content-html">
+				{{ formData.content }}
+			</view>
 		</view>
 		<view class="detail-bottom">
 			<view class="detail-bottom__input">
@@ -49,9 +51,18 @@
 		onLoad(query) {
 			this.formData = JSON.parse(query.params)
 			console.log(query)
+			this.getDetail()
 		},
 		methods: {
-			
+			getDetail() {
+				this.$api.getDetail({
+					article_id: this.formData._id
+				}).then((res) => {
+					const { data } = res
+					this.formData = data
+					console.log(data)
+				})
+			}
 		}
 	}
 </script>
@@ -103,9 +114,12 @@
 			}
 		}
 		.detail-content {
-			height: 1000px;
-			border: 1px solid #c00;
+			min-height: 500px;
+			// border: 1px solid #c00;
 			margin-top: 20px;
+			.detail-content-html {
+				padding: 0 15px;
+			}
 		}
 		.detail-bottom {
 			position: fixed;
