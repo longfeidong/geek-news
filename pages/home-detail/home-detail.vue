@@ -23,7 +23,7 @@
 			</view>
 		</view>
 		<view class="detail-bottom">
-			<view class="detail-bottom__input">
+			<view class="detail-bottom__input" @click="openPopup">
 				<text>谈谈你的看法</text>
 				<uni-icons type="compose" size="16" color="#c00"></uni-icons>
 			</view>
@@ -39,6 +39,18 @@
 				</view>
 			</view>
 		</view>
+		<uni-popup ref="popup" type="bottom" :maskClick="false">
+			<view class="popup-wrap">
+				<view class="popup-header">
+					<view class="popup-header__item" @click="closePopup">取消</view>
+					<view class="popup-header__item" @click="sendComment">发布</view>
+				</view>
+				<view class="popup-content">
+					<textarea class="popup-textarea" value="" placeholder="请输入评论内容" maxlength="200" fixed="true" />
+					<view class="popup-count">0/200</view>
+				</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -55,12 +67,25 @@
 				noData: '<p style="text-align:center;color:#666">详情正在加载……</p>'
 			}
 		},
+		onReady() {
+			// this.$refs.popup.open()
+		},
 		onLoad(query) {
 			this.formData = JSON.parse(query.params)
 			console.log(query)
 			this.getDetail()
 		},
 		methods: {
+			openPopup() {
+				this.$refs.popup.open()
+			},
+			closePopup() {
+				this.$refs.popup.close()
+			},
+			sendComment() {
+				console.log('发送评论')
+				this.$refs.popup.close()
+			},
 			getDetail() {
 				this.$api.getDetail({
 					article_id: this.formData._id
@@ -163,6 +188,35 @@
 					width: 44px;
 					justify-content: center;
 					align-items: center;
+				}
+			}
+		}
+		.popup-wrap {
+			background-color: #fff;
+			.popup-header {
+				display: flex;
+				justify-content: space-between;
+				border-bottom: 1px solid #F5F5F5;
+				font-size: 14px;
+				color: #666;
+				.popup-header__item {
+					height: 50px;
+					line-height: 50px;
+					padding: 0 15px;
+				}
+			}
+			.popup-content {
+				width: 100%;
+				padding: 15px;
+				box-sizing: border-box;
+				.popup-textarea {
+					width: 100%;
+					height: 200px;
+				}
+				.popup-count {
+					text-align: right;
+					color: #666;
+					font-size: 12px;
 				}
 			}
 		}
