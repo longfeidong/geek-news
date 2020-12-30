@@ -46,8 +46,8 @@
 					<view class="popup-header__item" @click="sendComment">发布</view>
 				</view>
 				<view class="popup-content">
-					<textarea class="popup-textarea" value="" placeholder="请输入评论内容" maxlength="200" fixed="true" />
-					<view class="popup-count">0/200</view>
+					<textarea class="popup-textarea" v-model="commentValue" placeholder="请输入评论内容" maxlength="200" fixed="true" />
+					<view class="popup-count">{{ commentValue.length }}/200</view>
 				</view>
 			</view>
 		</uni-popup>
@@ -64,7 +64,8 @@
 		data() {
 			return {
 				formData: {},
-				noData: '<p style="text-align:center;color:#666">详情正在加载……</p>'
+				noData: '<p style="text-align:center;color:#666">详情正在加载……</p>',
+				commentValue: '' // 评论内容
 			}
 		},
 		onReady() {
