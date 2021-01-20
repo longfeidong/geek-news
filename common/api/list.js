@@ -41,3 +41,10 @@ export const getDetail = (data) => {
 		data
 	})
 }
+
+export const updateComment = (data) => {
+	return $http({
+		url: 'updateComment',
+		data
+	})
+}

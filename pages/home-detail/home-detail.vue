@@ -18,8 +18,15 @@
 		</view>
 		<view class="detail-content">
 			<view class="detail-content-html">
-				<uParse :content="formData.content" :noData="noData"></uParse>
+				<!-- <uParse :content="formData.content" :noData="noData"></uParse> -->
 				<!-- {{ formData.content }} -->
+				详情内容
+			</view>
+			<view class="detail-comment">
+				<view class="comment-title">最新评论</view>
+				<view class="comment-content">
+					<comments-box></comments-box>
+				</view>
 			</view>
 		</view>
 		<view class="detail-bottom">
@@ -85,7 +92,30 @@
 			},
 			sendComment() {
 				console.log('发送评论')
-				this.$refs.popup.close()
+				// this.$refs.popup.close()
+				if (!this.commentValue) {
+					uni.showToast({
+						'title': '请输入评论内容',
+						'icon': 'none'
+					})
+					return
+				}
+				this.setUpdateComment(this.commentValue)
+			},
+			// 更新评论内容
+			setUpdateComment(content) {
+				uni.showLoading()
+				this.$api.updateComment({
+					article_id: this.formData._id,
+					content
+				}).then((res) => {
+					uni.hideLoading()
+					uni.showToast({
+						'title': '评论发布成功',
+						'icon': 'none'
+					})
+					this.closePopup()
+				})
 			},
 			getDetail() {
 				this.$api.getDetail({
@@ -152,6 +182,19 @@
 			margin-top: 20px;
 			.detail-content-html {
 				padding: 0 15px;
+			}
+			.detail-comment {
+				margin-top: 30px;
+				.comment-title {
+					padding: 10px 15px;
+					font-size: 14px;
+					color: #666;
+					border-bottom: 1px solid #F5F5F5;
+				}
+				.comment-content {
+					padding: 0 15px;
+					border-top: 1px solid #eee;
+				}
 			}
 		}
 		.detail-bottom {
