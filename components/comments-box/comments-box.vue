@@ -2,21 +2,29 @@
 	<view class="comments-box">
 		<view class="comments-header">
 			<view class="comments-header__logo">
-				<image src="../../static/logo.png"></image>
+				<image :src="comments.author.author"></image>
 			</view>
 			<view class="comments-header__info">
-				<view class="comments-user">longfei</view>
-				<view class="comments-time">2021-01-03 10:18:22</view>
+				<view class="comments-user">{{ comments.author.author_name }}</view>
+				<view class="comments-time">{{ comments.create_time }}</view>
 			</view>
 		</view>
 		<view class="comments-content">
-			<view>uni-app跨端解决方案很不错</view>
+			<view>{{ comments.comment_content }}</view>
 		</view>
 	</view>
 </template>
 
 <script>
 	export default {
+		props: {
+			comments: {
+				type: Object,
+				default: () => {
+					return {}
+				}
+			}
+		},
 		data() {
 			return {
 				

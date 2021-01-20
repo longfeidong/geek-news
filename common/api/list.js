@@ -48,3 +48,10 @@ export const updateComment = (data) => {
 		data
 	})
 }
+// 获取评论数据
+export const getComments = (data) => {
+	return $http({
+		url: 'getComments',
+		data
+	})
+}

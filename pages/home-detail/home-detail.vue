@@ -24,8 +24,8 @@
 			</view>
 			<view class="detail-comment">
 				<view class="comment-title">最新评论</view>
-				<view class="comment-content">
-					<comments-box></comments-box>
+				<view class="comment-content" v-for="item in commentList" :key="item.id">
+					<comments-box :comments="item"></comments-box>
 				</view>
 			</view>
 		</view>
@@ -72,7 +72,8 @@
 			return {
 				formData: {},
 				noData: '<p style="text-align:center;color:#666">详情正在加载……</p>',
-				commentValue: '' // 评论内容
+				commentValue: '' ,// 评论框内容
+				commentList: [] // 评论的列表内容
 			}
 		},
 		onReady() {
@@ -82,6 +83,8 @@
 			this.formData = JSON.parse(query.params)
 			console.log(query)
 			this.getDetail()
+			// 加载评论数据
+			this.getComments()
 		},
 		methods: {
 			openPopup() {
@@ -124,6 +127,16 @@
 					const { data } = res
 					this.formData = data
 					console.log(data)
+				})
+			},
+			// 请求评论数据
+			getComments() {
+				this.$api.getComments({
+					article_id: this.formData._id
+				}).then((res) => {
+					const { data } = res
+					this.commentList = data
+					// console.log(res)
 				})
 			}
 		}
