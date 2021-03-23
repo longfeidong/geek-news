@@ -11,11 +11,18 @@ exports.main = async (event, context) => {
 	const {
 		user_id, // 用户id
 		article_id, // 文章id
-		content // 评论内容
+		content, // 评论内容
+		comment_id = '' // 评论id
 	} = event
 	
 	let user = await db.collection('user').doc(user_id).get()
 	user = user.data[0]
+	
+	// 获取当前的文章信息
+	const article = await db.collection('article').doc(article_id).get()
+	// 获取当前文章下的所有评论，一组数组信息
+	const comments = article.data[0].comments
+	
 	// 评论的信息
 	let commentObj = {
 		comment_id: createId(5), // 评论id
@@ -30,9 +37,47 @@ exports.main = async (event, context) => {
 		replys: [] // 回复信息
 	}
 	
+	if (comment_id === '') {
+		// 评论文章
+		commentObj.replys = []
+		commentObj = dbCmd.unshift(commentObj)
+	} else {
+		// 回复评论内容
+		// 获取当前要回复评论的索引
+		let commentIndex = comments.findIndex(item => item.comment_id === comment_id)
+		
+		// 获取当前评论的作者信息(回复给谁)
+		let commentAuthor = comments.find(item => item.comment_id === comment_id)
+		commentAuthor = commentAuthor.author.author_name
+		// 保存要回复的作者昵称
+		commentObj.to = commentAuthor
+		// console.log(commentObj)
+		
+		// 更新回复信息
+		// 更新数组某一个下标下指定的某一个字段
+		commentObj = {
+			[commentIndex]: {
+				replys: dbCmd.unshift(commentObj)
+			}
+		}
+		// console.log(commentObj)
+		/*
+		let obj = {
+			arr: [{name: 1}, {name: 2}]
+		}
+		xxx.update({
+			arr: {
+				1: {
+					name: 3
+				}
+			}
+		})
+		*/
+	}
+	
 	// 更新文章评论信息
 	await db.collection('article').doc(article_id).update({
-		comments: dbCmd.unshift(commentObj)
+		comments: commentObj
 	})
 	
 	//返回数据给客户端

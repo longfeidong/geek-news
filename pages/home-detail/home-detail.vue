@@ -25,7 +25,7 @@
 			<view class="detail-comment">
 				<view class="comment-title">最新评论</view>
 				<view class="comment-content" v-for="item in commentList" :key="item.id">
-					<comments-box :comments="item"></comments-box>
+					<comments-box :comments="item" @reply="handleReply"></comments-box>
 				</view>
 			</view>
 		</view>
@@ -73,7 +73,8 @@
 				formData: {},
 				noData: '<p style="text-align:center;color:#666">详情正在加载……</p>',
 				commentValue: '' ,// 评论框内容
-				commentList: [] // 评论的列表内容
+				commentList: [] ,// 评论的列表内容
+				replyFormData: {} // 回复相关的内容
 			}
 		},
 		onReady() {
@@ -103,20 +104,27 @@
 					})
 					return
 				}
-				this.setUpdateComment(this.commentValue)
+				// this.setUpdateComment(this.commentValue)
+				this.setUpdateComment({content: this.commentValue, ...this.replyFormData})
 			},
 			// 更新评论内容
 			setUpdateComment(content) {
 				uni.showLoading()
-				this.$api.updateComment({
+				// 包装评论内容对象
+				const commentInfo = {
 					article_id: this.formData._id,
-					content
-				}).then((res) => {
+					...content
+				}
+				// console.log(commentInfo)
+				// return
+				this.$api.updateComment(commentInfo).then((res) => {
 					uni.hideLoading()
 					uni.showToast({
 						'title': '评论发布成功',
 						'icon': 'none'
 					})
+					// 关闭评论框前，再次请求最新的评论数据
+					this.getComments()
 					this.closePopup()
 				})
 			},
@@ -138,6 +146,14 @@
 					this.commentList = data
 					// console.log(res)
 				})
+			},
+			// 处理评论或回复
+			handleReply(e) {
+				this.replyFormData = {
+					'comment_id': e.comment_id
+				}
+				// console.log(this.replyFormData)
+				this.openPopup()
 			}
 		}
 	}

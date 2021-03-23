@@ -11,12 +11,23 @@
 		</view>
 		<view class="comments-content">
 			<view>{{ comments.comment_content }}</view>
+			<view class="comments_info">
+				<view class="comments_button" @click="commentsReply(comments)">回复</view>
+			</view>
+			<view class="comments_reply" v-for="item in comments.replys" :key="item.comment_id">
+				<comments-box :comments="item"></comments-box>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import commentBox from '@/components/comments-box/comments-box.vue'
 	export default {
+		name: 'comments-box',
+		components: {
+			commentBox
+		},
 		props: {
 			comments: {
 				type: Object,
@@ -29,6 +40,11 @@
 			return {
 				
 			};
+		},
+		methods: {
+			commentsReply(comment) {
+				this.$emit('reply', comment)
+			}
 		}
 	}
 </script>
@@ -67,6 +83,23 @@
 		margin-top: 10px;
 		font-size: 14px;
 		color: #000;
+		.comments_info {
+			margin-top: 15px;
+			display: flex;
+			.comments_button {
+				padding: 2px 10px;
+				font-size: 12px;
+				border-radius: 20px;
+				color: #999;
+				border: 1px solid #ccc;
+			}
+		}
+		.comments_reply {
+			display: flex;
+			padding: 0 10px;
+			margin: 15px 0;
+			border: 1px solid #eee;
+		}
 	}
 }
 </style>
