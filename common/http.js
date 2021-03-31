@@ -2,7 +2,7 @@ export default function $http(options){
 	const { url, data } = options
 	// 添加请求参数 user_id
 	const dataObj = {
-		'user_id': '5fb37b3fde65bb0001ec3f55',
+		'user_id': '5fb37b3fde65bb0001ec3f54',
 		...data
 	}
 	return new Promise((resolve, reject) => {
