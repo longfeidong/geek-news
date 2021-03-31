@@ -5,17 +5,18 @@
 				<image :src="comments.author.author"></image>
 			</view>
 			<view class="comments-header__info">
-				<view class="comments-user">{{ comments.author.author_name }}</view>
+				<view v-if="!comments.is_reply" class="comments-user">{{ comments.author.author_name }}</view>
+				<view v-else class="comments-user">{{ comments.author.author_name }} <text class="reply-text">回复</text> {{ comments.to }}</view>
 				<view class="comments-time">{{ comments.create_time }}</view>
 			</view>
 		</view>
 		<view class="comments-content">
 			<view>{{ comments.comment_content }}</view>
 			<view class="comments_info">
-				<view class="comments_button" @click="commentsReply(comments)">回复</view>
+				<view class="comments_button" @click="commentsReply({comments: comments, is_reply: reply})">回复</view>
 			</view>
 			<view class="comments_reply" v-for="item in comments.replys" :key="item.comment_id">
-				<comments-box :comments="item"></comments-box>
+				<comments-box :reply="true" :comments="item" @reply="commentsReply"></comments-box>
 			</view>
 		</view>
 	</view>
@@ -34,6 +35,11 @@
 				default: () => {
 					return {}
 				}
+			},
+			// 用于区分是主回复还是子回复
+			reply: {
+				type: Boolean,
+				default: false
 			}
 		},
 		data() {
@@ -43,6 +49,14 @@
 		},
 		methods: {
 			commentsReply(comment) {
+				// 用于区分是 主回复，还是 子回复
+				if (comment.is_reply) {
+					// 子回复id就是当前评论的id
+					comment.comments.reply_id = comment.comments.comment_id
+					// 评论的id应该是组件props中comments中的comment_id
+					comment.comments.comment_id = this.comments.comment_id
+				}
+				// console.log(comment)
 				this.$emit('reply', comment)
 			}
 		}
@@ -76,6 +90,11 @@
 				color: #333;
 				font-size: 14px;
 				margin-bottom: 10px;
+				.reply-text {
+					margin: 0 10px;
+					font-weight: bold;
+					color: #000;
+				}
 			}
 		}
 	}

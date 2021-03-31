@@ -12,7 +12,9 @@ exports.main = async (event, context) => {
 		user_id, // 用户id
 		article_id, // 文章id
 		content, // 评论内容
-		comment_id = '' // 评论id
+		comment_id = '', // 评论id
+		reply_id = '', // 子回复id
+		is_reply = false // 是否有子回复
 	} = event
 	
 	let user = await db.collection('user').doc(user_id).get()
@@ -34,7 +36,8 @@ exports.main = async (event, context) => {
 			author: user.avatar, // 作者头像
 			professional: user.professional // 作者专业
 		},
-		replys: [] // 回复信息
+		replys: [], // 回复信息
+		is_reply: is_reply // 区分是主回复 还是子回复
 	}
 	
 	if (comment_id === '') {
@@ -45,9 +48,16 @@ exports.main = async (event, context) => {
 		// 回复评论内容
 		// 获取当前要回复评论的索引
 		let commentIndex = comments.findIndex(item => item.comment_id === comment_id)
-		
-		// 获取当前评论的作者信息(回复给谁)
-		let commentAuthor = comments.find(item => item.comment_id === comment_id)
+		let commentAuthor
+		if (is_reply) {
+			// 子回复
+			// 获取当前子回复的作者信息(回复给谁)
+			commentAuthor = comments[commentIndex].replys.find(item => item.comment_id === reply_id)
+		} else {
+			// 主回复
+			// 获取当前评论的作者信息(回复给谁)
+			commentAuthor = comments.find(item => item.comment_id === comment_id)
+		}
 		commentAuthor = commentAuthor.author.author_name
 		// 保存要回复的作者昵称
 		commentObj.to = commentAuthor

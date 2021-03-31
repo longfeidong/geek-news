@@ -126,6 +126,11 @@
 					// 关闭评论框前，再次请求最新的评论数据
 					this.getComments()
 					this.closePopup()
+					
+					// 清空子回复相关的属性，comment_id，reply_id，防止最下方输入框评论时变成子回复
+					this.replyFormData = {}
+					// 清空评论内容
+					this.commentValue = ''
 				})
 			},
 			getDetail() {
@@ -150,9 +155,14 @@
 			// 处理评论或回复
 			handleReply(e) {
 				this.replyFormData = {
-					'comment_id': e.comment_id
+					'comment_id': e.comments.comment_id,
+					'is_reply': e.is_reply
 				}
-				// console.log(this.replyFormData)
+				if (e.comments.reply_id) {
+					this.replyFormData.reply_id = e.comments.reply_id
+				}
+				// console.log(e)
+				console.log(this.replyFormData)
 				this.openPopup()
 			}
 		}
