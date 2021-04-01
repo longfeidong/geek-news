@@ -55,3 +55,10 @@ export const getComments = (data) => {
 		data
 	})
 }
+// 关注和取消关注
+export const updateAuthor = (data) => {
+	return $http({
+		url: 'updateAuthor',
+		data
+	})
+}
